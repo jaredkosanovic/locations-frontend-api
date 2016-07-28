@@ -11,8 +11,7 @@ import org.junit.Test
 import org.junit.BeforeClass
 
 class LocationResourceTest {
-    def mock = new MockFor(LocationDAO)
-    def user = new AuthenticatedUser('nobody')
+    static def user = new AuthenticatedUser('nobody')
 
     @BeforeClass
     public static void setUp() {
@@ -20,7 +19,8 @@ class LocationResourceTest {
     }
 
     @Test
-    public void testList() {
+    public void testNoResults() {
+        def mock = new MockFor(LocationDAO)
         mock.demand.search() {
             String q, String campus, String type, Integer pageNumber, Integer pageSize ->
                 '{"hits": {"total": 0, "hits": []}}'
@@ -40,6 +40,7 @@ class LocationResourceTest {
 
     @Test
     public void testInvalidCampus() {
+        def mock = new MockFor(LocationDAO)
         def dao = mock.proxyInstance()
         def resource = new LocationResource(dao)
         resource.uriInfo = new MockUriInfo()
