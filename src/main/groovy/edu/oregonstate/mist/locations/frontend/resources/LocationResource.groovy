@@ -44,7 +44,7 @@ class LocationResource extends Resource {
      */
     public static final Integer DEFAULT_PAGE_SIZE = 10
 
-    private final LocationDAO locationDAO
+    LocationDAO locationDAO
 
     @Context
     UriInfo uriInfo
